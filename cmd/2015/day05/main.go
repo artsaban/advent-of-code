@@ -12,14 +12,14 @@ type DaySolver struct{}
 func (ds DaySolver) Part1(data string) int {
 	nice := 0
 	for _, line := range strings.Split(data, "\n") {
-		if isNice(line) {
+		if isNice1(line) {
 			nice += 1
 		}
 	}
 	return nice
 }
 
-func isNice(line string) bool {
+func isNice1(line string) bool {
 	c1 := 0
 	c2 := false
 	c3 := true
@@ -46,11 +46,31 @@ func isNice(line string) bool {
 }
 
 func (ds DaySolver) Part2(data string) int {
-	// c1, c2 := false, false
-	// rLine := []rune(data)
-	// for i, ch := range rLine {
-	// }
-	return 0
+	nice := 0
+	for _, line := range strings.Split(data, "\n") {
+		if isNice2([]rune(line)) {
+			nice += 1
+		}
+	}
+	return nice
+}
+
+func isNice2(line []rune) bool {
+	c1, c2 := false, false
+	// It contains a pair of any two letters that appears at least twice in the string without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
+	for i := 1; i < len(line); i++ {
+		if s := string([]rune{line[i-1], line[i]}); strings.Contains(string(line[i+1:]), s) {
+			c1 = true
+		}
+	}
+	// It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
+	for i := 2; i < len(line); i++ {
+		p0, p1 := line[i], line[i-2]
+		if p0 == p1 {
+			c2 = true
+		}
+	}
+	return c1 && c2
 }
 
 func main() {
