@@ -1,0 +1,22 @@
+package main
+
+import (
+	"os"
+
+	"github.com/artsaban/advent-of-code/internal/solution"
+)
+
+type DaySolver struct{}
+
+func (ds DaySolver) Part1(input string) int {
+	return 0
+}
+
+func (ds DaySolver) Part2(input string) int {
+	return 0
+}
+
+func main() {
+	solution.NewSolution(os.Stdin, DaySolver{}).Print()
+}
+
