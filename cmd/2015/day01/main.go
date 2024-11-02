@@ -6,9 +6,7 @@ import (
 	"github.com/artsaban/advent-of-code/internal/solution"
 )
 
-type DaySolver struct{}
-
-func (s DaySolver) Part1(data string) int {
+func part1(data string) int {
 	result := 0
 	for _, ch := range data {
 		if ch == '(' {
@@ -20,7 +18,7 @@ func (s DaySolver) Part1(data string) int {
 	return result
 }
 
-func (s DaySolver) Part2(data string) int {
+func part2(data string) int {
 	result := 0
 	for idx, ch := range data {
 		if ch == '(' {
@@ -37,5 +35,5 @@ func (s DaySolver) Part2(data string) int {
 }
 
 func main() {
-	solution.NewSolution(os.Stdin, DaySolver{}).Print()
+	solution.NewSolution(os.Stdin, part1, part2).Print()
 }

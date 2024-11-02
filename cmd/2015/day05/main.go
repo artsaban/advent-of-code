@@ -7,9 +7,7 @@ import (
 	"github.com/artsaban/advent-of-code/internal/solution"
 )
 
-type DaySolver struct{}
-
-func (ds DaySolver) Part1(data string) int {
+func part1(data string) int {
 	nice := 0
 	for _, line := range strings.Split(data, "\n") {
 		if isNice1(line) {
@@ -45,7 +43,7 @@ func isNice1(line string) bool {
 	return c1 >= 3 && c2 && c3
 }
 
-func (ds DaySolver) Part2(data string) int {
+func part2(data string) int {
 	nice := 0
 	for _, line := range strings.Split(data, "\n") {
 		if isNice2([]rune(line)) {
@@ -74,5 +72,5 @@ func isNice2(line []rune) bool {
 }
 
 func main() {
-	solution.NewSolution(os.Stdin, DaySolver{}).Print()
+	solution.NewSolution(os.Stdin, part1, part2).Print()
 }

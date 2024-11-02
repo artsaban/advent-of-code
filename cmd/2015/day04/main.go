@@ -11,15 +11,13 @@ import (
 
 const input = "yzbqklnj"
 
-type DaySolver struct{}
-
 func getMD5Hash(text string) string {
 	hash := md5.Sum([]byte(text))
 	hashStr := hex.EncodeToString(hash[:])
 	return hashStr
 }
 
-func (ds DaySolver) Part1(data string) int {
+func part1(data string) int {
 	num := 1
 
 	for {
@@ -34,7 +32,7 @@ func (ds DaySolver) Part1(data string) int {
 	return num
 }
 
-func (ds DaySolver) Part2(data string) int {
+func part2(data string) int {
 	num := 1
 
 	for {
@@ -51,5 +49,5 @@ func (ds DaySolver) Part2(data string) int {
 
 func main() {
 	r := strings.NewReader(input)
-	solution.NewSolution(r, DaySolver{}).Print()
+	solution.NewSolution(r, part1, part2).Print()
 }

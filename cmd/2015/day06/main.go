@@ -1,21 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/artsaban/advent-of-code/internal/solution"
 )
 
 const (
-	turn   = "turn"
-	on     = "on"
-	off    = "off"
-	toggle = "toggle"
+	turnOnFmt  = "turn on %d,%d through %d,%d"
+	turnOffFmt = "turn off %d,%d through %d,%d"
+	toggleFmt  = "toggle %d,%d through %d,%d"
 )
-
-type DaySolver struct{}
 
 func executeCommand(command string, a, b, c, d int, lights *[1000][1000]bool) {
 	for i := a; i <= b; i++ {
@@ -52,45 +49,21 @@ func executeCommandBrightness(command string, a, b, c, d int, lights *[1000][100
 	}
 }
 
-func parseCoordinates(l string, r string) (int, int, int, int) {
-	lxy, rxy := strings.Split(l, ","), strings.Split(r, ",")
-	lx, err := strconv.Atoi(lxy[0])
-	if err != nil {
-		panic("cant parse coordinate")
-	}
-	rx, err := strconv.Atoi(rxy[0])
-	if err != nil {
-		panic("cant parse coordinate")
-	}
-	ly, err := strconv.Atoi(lxy[1])
-	if err != nil {
-		panic("cant parse coordinate")
-	}
-	ry, err := strconv.Atoi(rxy[1])
-	if err != nil {
-		panic("cant parse coordinate")
-	}
-	return lx, rx, ly, ry
-}
-
-func (ds DaySolver) Part1(input string) int {
+func part1(input string) int {
 	var lights [1000][1000]bool
 	lines := strings.Split(input, "\n")
 
 	for _, line := range lines {
-		switch command := strings.Split(line, " "); {
-		case command[0] == turn && command[1] == on:
-			a, b, c, d := parseCoordinates(command[2], command[4])
+		var a, b, c, d int
+
+		if _, err := fmt.Sscanf(line, turnOnFmt, &a, &c, &b, &d); err == nil {
 			executeCommand("turn on", a, b, c, d, &lights)
-		case command[0] == turn && command[1] == off:
-			a, b, c, d := parseCoordinates(command[2], command[4])
+		} else if _, err := fmt.Sscanf(line, turnOffFmt, &a, &c, &b, &d); err == nil {
 			executeCommand("turn off", a, b, c, d, &lights)
-		case command[0] == toggle:
-			a, b, c, d := parseCoordinates(command[1], command[3])
+		} else if _, err := fmt.Sscanf(line, toggleFmt, &a, &c, &b, &d); err == nil {
 			executeCommand("toggle", a, b, c, d, &lights)
-		default:
-			panic("unreachable")
 		}
+
 	}
 
 	result := 0
@@ -104,23 +77,18 @@ func (ds DaySolver) Part1(input string) int {
 	return result
 }
 
-func (ds DaySolver) Part2(input string) int {
+func part2(input string) int {
 	var brightness [1000][1000]int
 	lines := strings.Split(input, "\n")
 
 	for _, line := range lines {
-		switch command := strings.Split(line, " "); {
-		case command[0] == turn && command[1] == on:
-			a, b, c, d := parseCoordinates(command[2], command[4])
+		var a, b, c, d int
+		if _, err := fmt.Sscanf(line, turnOnFmt, &a, &c, &b, &d); err == nil {
 			executeCommandBrightness("turn on", a, b, c, d, &brightness)
-		case command[0] == turn && command[1] == off:
-			a, b, c, d := parseCoordinates(command[2], command[4])
+		} else if _, err := fmt.Sscanf(line, turnOffFmt, &a, &c, &b, &d); err == nil {
 			executeCommandBrightness("turn off", a, b, c, d, &brightness)
-		case command[0] == toggle:
-			a, b, c, d := parseCoordinates(command[1], command[3])
+		} else if _, err := fmt.Sscanf(line, toggleFmt, &a, &c, &b, &d); err == nil {
 			executeCommandBrightness("toggle", a, b, c, d, &brightness)
-		default:
-			panic("unreachable")
 		}
 	}
 
@@ -134,5 +102,5 @@ func (ds DaySolver) Part2(input string) int {
 }
 
 func main() {
-	solution.NewSolution(os.Stdin, DaySolver{}).Print()
+	solution.NewSolution(os.Stdin, part1, part2).Print()
 }

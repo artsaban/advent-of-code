@@ -6,8 +6,6 @@ import (
 	"github.com/artsaban/advent-of-code/internal/solution"
 )
 
-type DaySolver struct{}
-
 type shift struct {
 	x, y int
 }
@@ -29,7 +27,7 @@ func (s shift) next(dir rune) shift {
 	return newShift
 }
 
-func (ds DaySolver) Part1(data string) int {
+func part1(data string) int {
 	shifts := make(map[shift]int)
 	start := shift{}
 	shifts[start] = 1
@@ -50,7 +48,7 @@ func (ds DaySolver) Part1(data string) int {
 	return result
 }
 
-func (ds DaySolver) Part2(data string) int {
+func part2(data string) int {
 	shifts := make(map[shift]int)
 	moveAgent := func(agent shift) {
 		if _, ok := shifts[agent]; ok {
@@ -82,5 +80,5 @@ func (ds DaySolver) Part2(data string) int {
 }
 
 func main() {
-	solution.NewSolution(os.Stdin, DaySolver{}).Print()
+	solution.NewSolution(os.Stdin, part1, part2).Print()
 }
