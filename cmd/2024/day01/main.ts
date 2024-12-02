@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { readLines } from "../../../internal/input/input.ts";
 
 const { leftNums, rightNums } = await preprocessInput();
 console.log(part1(leftNums, rightNums));
@@ -10,11 +11,8 @@ async function preprocessInput(): Promise<{
 }> {
   const leftNums = [];
   const rightNums = [];
-  const lines = (await new Response(Deno.stdin.readable).text())
-    .trim()
-    .split("\n");
 
-  for (const line of lines) {
+  for (const line of await readLines()) {
     const [left, right] = line.split(/\s+/).map(Number);
     leftNums.push(left);
     rightNums.push(right);
