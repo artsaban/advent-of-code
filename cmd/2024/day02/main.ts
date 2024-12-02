@@ -1,7 +1,6 @@
 import { readLines } from "../../../internal/input/input.ts";
 
-const lines = await readLines();
-const reports = lines.map((line) => line.split(" ").map(Number));
+const reports = (await readLines()).map((line) => line.split(" ").map(Number));
 console.log(`Part 1: ${part1(reports)}\nPart 2: ${part2(reports)}`);
 
 function part1(reports: number[][]) {
@@ -53,7 +52,7 @@ function isSafeReportWithDampener(report: number[]): boolean {
     return true;
   }
   for (let i = 0; i < report.length; i++) {
-    if (isSafeReport([...report.slice(0, i), ...report.slice(i + 1)])) {
+    if (isSafeReport(report.toSpliced(i, 1))) {
       return true;
     }
   }
