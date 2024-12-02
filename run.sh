@@ -15,5 +15,5 @@ if [ "$LANG" = "go" ]; then
 elif [ "$LANG" = "py" ]; then
   curl -s -b $(cat .env) "https://adventofcode.com/${YEAR}/day/${DAY}/input" | python3 ./cmd/${YEAR}/day${SOURCE_CODE_DAY}/main.py
 else
-  curl -s -b $(cat .env) "https://adventofcode.com/${YEAR}/day/${DAY}/input" | bun run ./cmd/${YEAR}/day${SOURCE_CODE_DAY}/main.ts
+  curl -s -b $(cat .env) "https://adventofcode.com/${YEAR}/day/${DAY}/input" | deno run ./cmd/${YEAR}/day${SOURCE_CODE_DAY}/main.ts
 fi
