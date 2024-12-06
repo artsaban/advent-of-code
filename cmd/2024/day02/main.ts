@@ -1,7 +1,11 @@
 import { readLines } from "../../../internal/input/input.ts";
 
-const reports = (await readLines()).map((line) => line.split(" ").map(Number));
-console.log(`Part 1: ${part1(reports)}\nPart 2: ${part2(reports)}`);
+if (import.meta.main) {
+  const reports = (await readLines()).map((line) =>
+    line.split(" ").map(Number)
+  );
+  console.log(`Part 1: ${part1(reports)}\nPart 2: ${part2(reports)}`);
+}
 
 function part1(reports: number[][]) {
   return reports.filter(isSafeReport).length;

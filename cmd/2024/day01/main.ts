@@ -1,9 +1,11 @@
 import { assert } from "@std/assert";
 import { readLines } from "../../../internal/input/input.ts";
 
-const { leftNums, rightNums } = await preprocessInput();
-console.log(part1(leftNums, rightNums));
-console.log(part2(leftNums, rightNums));
+if (import.meta.main) {
+  const { leftNums, rightNums } = await preprocessInput();
+  console.log(part1(leftNums, rightNums));
+  console.log(part2(leftNums, rightNums));
+}
 
 async function preprocessInput(): Promise<{
   leftNums: number[];

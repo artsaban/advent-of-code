@@ -1,17 +1,29 @@
 import { readAll } from "../../../internal/input/input.ts";
 import DefaultDict from "../../../internal/defaultdict/index.ts";
 
-const input = await readAll();
-const [rulesRaw, updatesRaw] = input.split("\n\n");
-const rules = rulesRaw.split("\n").map((x) => x.split("|").map(Number));
-const updates = updatesRaw.split("\n").map((x) => x.split(",").map(Number));
+if (import.meta.main) {
+  const input = await readAll();
+  const [rulesRaw, updatesRaw] = input.split("\n\n");
+  const rules = rulesRaw.split("\n").map((x) => x.split("|").map(Number));
+  const updates = updatesRaw.split("\n").map((x) => x.split(",").map(Number));
 
-const orderGraph = new DefaultDict<number, number[]>(() => []);
-for (const [from, to] of rules) {
-  orderGraph.get(to).push(from);
+  const orderGraph = new DefaultDict<number, number[]>(() => []);
+  for (const [from, to] of rules) {
+    orderGraph.get(to).push(from);
+  }
+
+  console.log(
+    `Part 1: ${part1(updates, orderGraph)}\nPart 2: ${part2(
+      updates,
+      orderGraph
+    )}`
+  );
 }
 
-function part1(): number {
+function part1(
+  updates: number[][],
+  orderGraph: DefaultDict<number, number[]>
+): number {
   let result = 0;
   for (const update of updates) {
     if (isCorrectUpdate(update, orderGraph)) {
@@ -21,7 +33,10 @@ function part1(): number {
   return result;
 }
 
-function part2(): number {
+function part2(
+  updates: number[][],
+  orderGraph: DefaultDict<number, number[]>
+): number {
   function updateComparator(a: number, b: number): -1 | 0 | 1 {
     const beforeB = orderGraph.get(b);
     if (beforeB.includes(a)) return -1;
@@ -40,7 +55,10 @@ function part2(): number {
   return result;
 }
 
-function isCorrectUpdate(update: number[], graph: DefaultDict<number, number[]>) {
+function isCorrectUpdate(
+  update: number[],
+  graph: DefaultDict<number, number[]>
+) {
   for (let i = 0; i < update.length; i++) {
     const u = update[i];
     const after = update.slice(i + 1);
@@ -51,6 +69,3 @@ function isCorrectUpdate(update: number[], graph: DefaultDict<number, number[]>)
   }
   return true;
 }
-
-console.log("Part 1:", part1());
-console.log("Part 2:", part2());

@@ -1,9 +1,11 @@
 import { readLines } from "../../../internal/input/input.ts";
 
-const letters = (await readLines()).map((line) => line.split(""));
-console.log(
-  `Part 1: ${part1(structuredClone(letters))}\nPart 2: ${part2(letters)}`
-);
+if (import.meta.main) {
+  const letters = (await readLines()).map((line) => line.split(""));
+  console.log(
+    `Part 1: ${part1(structuredClone(letters))}\nPart 2: ${part2(letters)}`
+  );
+}
 
 function part1(input: string[][]): number {
   let result = 0;

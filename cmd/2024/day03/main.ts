@@ -1,7 +1,9 @@
 import { readAll } from "../../../internal/input/input.ts";
 
-const memory = await readAll();
-console.log(`Part 1: ${part1(memory)}\nPart 2: ${part2(memory)}`);
+if (import.meta.main) {
+  const memory = await readAll();
+  console.log(`Part 1: ${part1(memory)}\nPart 2: ${part2(memory)}`);
+}
 
 function part1(memory: string) {
   let result = 0;
