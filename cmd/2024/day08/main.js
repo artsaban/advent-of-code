@@ -8,10 +8,11 @@ function getCombinationsByTwo(elements) {
   return combinations;
 }
 
-const map = $0.textContent
-  .trim()
+const map = $("pre")
+  .textContent.trim()
   .split("\n")
   .map((row) => row.split(""));
+
 const m = map.length;
 const n = map[0].length;
 const coordinates = new Map();
