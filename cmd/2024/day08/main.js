@@ -1,3 +1,6 @@
+// This day written using only browser, page with task input and snippets tab in Chrome DevTools.
+// To run this solution, open the input page in the browser and execute the script in the console.
+
 function getCombinationsByTwo(elements) {
   const combinations = [];
   for (let i = 0; i < elements.length; i++) {
